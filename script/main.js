@@ -11,9 +11,7 @@ const fetchData = () => {
       dataArr.map(customData => {
         if (data[customData] !== "") {
           if (customData === "imagePath") {
-            document
-              .querySelector(`[data-node-name*="${customData}"]`)
-              .setAttribute("src", data[customData])
+            // Skip imagePath since we now use multiple photos
           } else if (customData === "fonts") {
             data[customData].forEach(font => {
               const link = document.createElement('link')
@@ -231,21 +229,47 @@ const animationTimeline = () => {
       0.2
     )
     .from(
-      ".lydia-dp",
+      ".photo-section",
       0.5,
       {
-        scale: 3.5,
-        opacity: 0,
-        x: 25,
-        y: -25,
-        rotationZ: -45
+        scale: 0.5,
+        opacity: 0
       },
       "-=2"
+    )
+    .from(
+      ".scroll-hint",
+      0.5,
+      {
+        scale: 0,
+        opacity: 0
+      }
+    )
+    .staggerFrom(
+      ".photo-item",
+      0.7,
+      {
+        opacity: 0,
+        y: 50,
+        scale: 0.8
+      },
+      0.3
     )
     .from(".hat", 0.5, {
       x: -100,
       y: 350,
       rotation: -180,
+      opacity: 0
+    })
+    .from(".decoration-heart", 0.5, {
+      x: 100,
+      y: -350,
+      rotation: 180,
+      opacity: 0
+    })
+    .from(".decoration-cake", 0.5, {
+      y: 350,
+      rotation: 360,
       opacity: 0
     })
     .staggerFrom(
